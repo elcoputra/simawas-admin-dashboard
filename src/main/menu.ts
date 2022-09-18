@@ -4,6 +4,7 @@ import {
   shell,
   BrowserWindow,
   MenuItemConstructorOptions,
+  ipcMain,
 } from 'electron';
 
 interface DarwinMenuItemConstructorOptions extends MenuItemConstructorOptions {
@@ -168,18 +169,6 @@ export default class MenuBuilder {
             );
           },
         },
-        {
-          label: 'Community Discussions',
-          click() {
-            shell.openExternal('https://www.electronjs.org/community');
-          },
-        },
-        {
-          label: 'Search Issues',
-          click() {
-            shell.openExternal('https://github.com/electron/electron/issues');
-          },
-        },
       ],
     };
 
@@ -282,6 +271,12 @@ export default class MenuBuilder {
             },
           },
         ],
+      },
+      {
+        label: '&About',
+        click: () => {
+          ipcMain.emit('show-about-window-event');
+        },
       },
     ];
 

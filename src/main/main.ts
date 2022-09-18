@@ -72,7 +72,9 @@ const createWindow = async () => {
   mainWindow = new BrowserWindow({
     show: false,
     width: 1024,
+    minWidth: 720,
     height: 728,
+    minHeight: 576,
     icon: getAssetPath('icon.png'),
     webPreferences: {
       sandbox: false,
@@ -116,6 +118,12 @@ const createWindow = async () => {
 /**
  * Add event listeners...
  */
+
+ipcMain.on('show-about-window-event', () => {
+  if (mainWindow) {
+    mainWindow.loadURL(resolveHtmlPath('/index.html/about'));
+  }
+});
 
 app.on('window-all-closed', () => {
   // Respect the OSX convention of having the application in memory even
